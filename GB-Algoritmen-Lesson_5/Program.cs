@@ -13,7 +13,7 @@ namespace GB_Algoritmen_Lesson_5
     {
         static Dictionary<string, Act> dict = new Dictionary<string, Act>
         {
-            { "1", new Act },
+            { "1", new DecimaalToBinair() },
         };
 
         static void Main(string[] args)
@@ -38,7 +38,7 @@ namespace GB_Algoritmen_Lesson_5
                     "7.	* Реализовать двустороннюю очередь." + Environment.NewLine +
                     "0. Нажмите для выхода из программы.");
 
-                n = q.Question<int>("Введите ", new HashSet<char>() { '0', '1', '2', '3', '4' }, true);
+                n = q.Question<int>("Введите ", new HashSet<char>() { '0', '1', }, true);
                 if (n == "0") break;
                 dict[n].Work();
             }
@@ -50,5 +50,47 @@ namespace GB_Algoritmen_Lesson_5
     abstract class Act
     {
         public abstract void Work();
+    }
+
+    class DecimaalToBinair : Act
+    {
+        Stack<char> stack = new Stack<char>();
+
+        public override void Work() => 
+            WriteLine($"Число в двоичной системе исчисления: { ToBinary(int.Parse((new Questions()).Question<int>("Введите число:", new HashSet<char>() { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' }, true))) }");
+
+        public string ToBinary(int num)
+        {
+            Convert(num);
+            return new string(stack.Select(x => x).Reverse().ToArray());
+        }
+
+        private void Convert(int number)
+        {
+            stack = new Stack<char>();
+            var step = (int)Math.Sqrt(number);
+            var t = 0;
+            char answer = '0';
+            var sum = 0;
+            while (true)
+            {
+                answer = '0';
+                t = (int)Math.Pow(2, step);
+                WriteLine($"{t.ToString()}");
+                if (t <= number) { answer = '1'; number -= t; sum += t; }
+                step--;
+                if(sum > 0) stack.Push(answer);
+                if (number <= 0 && step < 0) break;                
+            }
+        }
+    }
+
+
+    class MyStack
+    {
+        MyStack head;
+        MyStack teal;
+
+
     }
 }
