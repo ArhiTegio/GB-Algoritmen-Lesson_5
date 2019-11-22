@@ -17,6 +17,7 @@ namespace GB_Algoritmen_Lesson_5
             { "2", new TestNewStack() },
             { "3", new Brackets() },
             { "4", new CloneStack() },
+            { "5", new FromInfixToPostfix() },
             { "6", new TestNewQueue() },
         };
 
@@ -39,7 +40,7 @@ namespace GB_Algoritmen_Lesson_5
                     "6. * Реализовать очередь" + Environment.NewLine +
                     "0. Нажмите для выхода из программы.");
 
-                n = q.Question<int>("Введите ", new HashSet<char>() { '0', '1', '2', '3', '4', '6' }, true);
+                n = q.Question<int>("Введите ", new HashSet<char>() { '0', '1', '2', '3', '4', '5', '6' }, true);
                 if (n == "0") break;
                 dict[n].Work();
             }
@@ -149,9 +150,11 @@ namespace GB_Algoritmen_Lesson_5
 
     class FromInfixToPostfix : Act
     {
+        
         public override void Work()
         {
-            T
+            var fix = new PostfixNotationExpression();
+            WriteLine( $"{ fix.ConvertToPostfixNotation((new Questions()).Question<string>("Введите выражение:", new HashSet<char>() { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-', '*', '/', '{', '}', '[', ']', '(', ')' }, true)) }");            
         }
     }
 
@@ -213,64 +216,6 @@ namespace GB_Algoritmen_Lesson_5
                 Write($"{queue1.Dequeue()}, ");
             WriteLine("");
         }
-    }
-
-    //Дерево
-    class Tree
-    {
-        private Node head;
-        private Node tail1;
-        private Node tail2;
-        private int count;
-
-        public int Count { get => count; }
-
-        private class Node
-        {
-            public OptionsValue Option { get; set; }
-            public char Value { get; set; }
-            public Node Next1 { get; set; }
-            public Node Next2 { get; set; }
-            public Node Previous { get; set; }
-
-            //Конструктор
-            public Node(char value)
-            {
-                Value = value;
-                Next1 = null;
-                Next2 = null;
-            }
-        }
-        
-        public Tree Previous()
-        {
-            if (head.Previous != null)
-                head = head.Previous;
-            return this;
-        }
-
-        public Tree Add(char c)
-        {
-            if (head == null)
-            {
-                head = new Node(c);
-                return this;
-            }
-
-            
-
-            return this;
-        }
-
-
-
-
-    }
-
-    enum OptionsValue
-    {
-        Number,
-        Оperator
     }
 
     // Очередь
