@@ -366,5 +366,4 @@ namespace GB_Algoritmen_Lesson_5
             }
         }
     }
-
 }
